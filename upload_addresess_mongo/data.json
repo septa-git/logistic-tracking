@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "sell_id": "INV-230011060930",
+      "co_prov": "DKI Jakarta",
+      "co_city": "Kota Jakarta Timur",
+      "co_count": "Cakung",
+      "co_add": "Jl. Rawa Sumur Timur No.7, RW.9, Jatinegara, Kec. Cakung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13930, Indonesia",
+      "coe_prov": "DKI Jakarta",
+      "coe_city": "Kota Jakarta Utara",
+      "coe_count": "Kelapa Gading",
+      "coe_add": "Jl. Boulevard Raya Blok FY 1 No.22, RT.8/RW.13, Klp. Gading Tim., Kec. Klp. Gading, Jkt Utara, Daerah Khusus Ibukota Jakarta 14240, Indonesia",
+      "assignee": "dedeabdulazizalghifary@gmail.com"
+    },
+    {
+      "sell_id": "INV-230171030997",
+      "co_prov": "DI Yogyakarta",
+      "co_city": "Kabupaten Sleman",
+      "co_count": "Mlati",
+      "co_add": "Jl. Magelang No.6,2, Jombor Kidul, Sinduadi, Kec. Mlati, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55284, Indonesia",
+      "coe_prov": "DI Yogyakarta",
+      "coe_city": "Kabupaten Sleman",
+      "coe_count": "Depok",
+      "coe_add": "Jl. Raya Janti, Wonocatur, Banguntapan, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta, Indonesia",
+      "assignee": "zkyh1928@gmail.com"
+    }
+  ]
+}

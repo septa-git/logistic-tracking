@@ -1,0 +1,102 @@
+<!-- index.ejs -->
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Upload Data File Excel</title>
+    <style>
+      /* Mengatur gaya untuk garis pembatas */
+      hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Upload Data File Excel</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="excel" accept=".xlsx" />
+      <button type="submit">Submit</button>
+    </form>
+    <!-- Menambahkan elemen untuk menampilkan data dari MongoDB -->
+    <h2>Data dari MongoDB</h2>
+    <ul>
+      <% data.forEach((item, index) => { %>
+      <!-- Menampilkan nomor urut -->
+      <li><%= index + 1 %>.</li>
+      <!-- Menampilkan data dengan property <li></li> -->
+      <li>sell_id: <%= item.sell_id %></li>
+      <li>co_prov: <%= item.co_prov %></li>
+      <li>co_city: <%= item.co_city %></li>
+      <li>co_count: <%= item.co_count %></li>
+      <li>co_add: <%= item.co_add %></li>
+      <li>coe_prov: <%= item.coe_prov %></li>
+      <li>coe_city: <%= item.coe_city %></li>
+      <li>coe_count: <%= item.coe_count %></li>
+      <li>coe_add: <%= item.coe_add %></li>
+      <li>assignee: <%= item.assignee %></li>
+      <!-- Menampilkan koordinat lokasi jika ada -->
+      <% if (item.co_lat && item.co_lng) { %>
+      <li>co_lat: <%= item.co_lat %></li>
+      <li>co_lng: <%= item.co_lng %></li>
+      <% } %>
+      <!-- Menampilkan koordinat lokasi tujuan jika ada -->
+      <% if (item.coe_lat && item.coe_lng) { %>
+      <li>coe_lat: <%= item.coe_lat %></li>
+      <li>coe_lng: <%= item.coe_lng %></li>
+      <% } %>
+      <!-- Menampilkan jarak kilometer jika ada -->
+      <% if (item.distance) { %>
+      <li>distance: <%= item.distance %></li>
+      <% } %>
+      <!-- Menampilkan tombol untuk menemukan jarak kilometer -->
+      <form action="/distance" method="post">
+        <input type="hidden" name="_id" value="<%= item._id %>" />
+        <!-- Menghapus event listener untuk mengeksekusi fungsi findDistance() -->
+        <button type="submit" onclick="findDistance(event, '<%= item._id %>')">
+          Menemukan Jarak Kilometer
+        </button>
+      </form>
+      <!-- Menampilkan garis pembatas -->
+      <hr />
+      <% }) %>
+    </ul>
+    <!-- Menambahkan tombol untuk memperbaharui lokasi -->
+    <form action="/update" method="post">
+      <button type="submit">Memperbaharui Lokasi</button>
+    </form>
+
+    <!-- Menambahkan kode JavaScript untuk membuat HTTP request ke /distance -->
+    <script>
+      // Menghapus fungsi untuk menemukan jarak kilometer
+      function findDistance(event, id) {
+        // Mencegah perilaku bawaan dari formulir
+        event.preventDefault();
+        // Membuat objek FormData untuk menyimpan data yang dikirimkan
+        const formData = new FormData();
+        // Menambahkan field _id dengan nilai id
+        formData.append("_id", id);
+        // Membuat HTTP request dengan metode POST ke /distance
+        fetch("/distance", {
+          method: "POST",
+          body: formData,
+        })
+          // Mengubah response menjadi objek JSON
+          .then((response) => response.json())
+          // Menampilkan data jarak pada elemen span yang sesuai
+          .then((data) => {
+            // Mencari elemen span dengan id "distance-id"
+            const span = document.getElementById("distance-" + id);
+            // Menambahkan teks "distance: " dan data jarak pada elemen span
+            span.textContent = "distance: " + data.distance;
+          })
+          // Menampilkan error jika ada
+          .catch((err) => console.error(err));
+      }
+    </script>
+    <!-- Menambahkan tombol untuk menemukan jarak kilometer untuk semua item sekaligus -->
+    <button onclick="window.location.href='/distance'">
+      Menemukan Jarak Kilometer untuk Semua Item
+    </button>
+  </body>
+</html>
